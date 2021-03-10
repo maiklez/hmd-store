@@ -22,4 +22,6 @@ Route::group(['prefix' => 'providers'], function() {
     Route::put('/{id}', 'ProviderController@updateProvider');
     Route::delete('/{id}', 'ProviderController@deleteProvider');
 
+
+    Route::get('/{id}/products', 'ProviderController@getProductsProviders');
 });

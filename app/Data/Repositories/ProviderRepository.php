@@ -32,6 +32,16 @@ class ProviderRepository
         return $provider;
     }
 
+    public function findProducts($id)
+    {
+        $provider = Provider::find($id);
+        if (!$provider)
+        {
+          throw new NotFoundException('provider not found');
+        }
+        return $provider->products()->get();
+    }
+
     public function findBySlug($slug)
     {
         $provider = Provider::where('slug', $slug)->first();

@@ -46,7 +46,6 @@ class UpdateOrderFeatureTest extends TestCase
         ];
 
         $response = $this->post('/api/orders/1/products', $data);
-        var_dump(\substr( $response->content(), 0, 1000));
         $response->assertStatus(200);
         $this->assertDatabaseCount('orders', 1);
     }

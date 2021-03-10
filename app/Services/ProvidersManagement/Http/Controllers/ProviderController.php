@@ -8,6 +8,7 @@ use App\Services\ProvidersManagement\Features\CreateProviderFeature;
 use App\Services\ProvidersManagement\Features\ReadProviderFeature;
 use App\Services\ProvidersManagement\Features\UpdateProviderFeature;
 use App\Services\ProvidersManagement\Features\DeleteProviderFeature;
+use App\Services\ProvidersManagement\Features\ListProductsProvidersFeature;
 
 class ProviderController extends Controller
 {
@@ -15,6 +16,11 @@ class ProviderController extends Controller
     public function getProviders()
     {
         return $this->serve(ListProvidersFeature::class);
+    }
+
+    public function getProductsProviders($id)
+    {
+        return $this->serve(ListProductsProvidersFeature::class, [ 'id' => $id]);
     }
 
     public function createProvider()
