@@ -2,6 +2,8 @@
 
 namespace Database\Factories\data\Models;
 
+use App\Data\Models\ProductAttribute;
+use App\Data\Models\Product;
 use App\Data\Models\Attribute;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -13,7 +15,7 @@ class ProductAttributeFactory extends Factory
      *
      * @var string
      */
-    protected $model = Attribute::class;
+    protected $model = ProductAttribute::class;
 
     /**
      * Define the model's default state.
@@ -23,7 +25,8 @@ class ProductAttributeFactory extends Factory
     public function definition()
     {
         return [
-            'type' => $this->faker->name,
+            'prod_id' => Product::factory(),
+            'type' => Attribute::factory(),
             'value' => $this->faker->text,
         ];
     }

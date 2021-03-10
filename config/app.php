@@ -171,6 +171,8 @@ return [
         App\Services\CategoriesManagement\Providers\CategoriesManagementServiceProvider::class,
         App\Services\StoresManagement\Providers\StoresManagementServiceProvider::class,
         App\Services\ProvidersManagement\Providers\ProvidersManagementServiceProvider::class,
+        App\Services\ClientsManagement\Providers\ClientsManagementServiceProvider::class,
+        App\Services\OrdersManagement\Providers\OrdersManagementServiceProvider::class,
 
         /*
          * Application Service Providers...

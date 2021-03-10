@@ -15,6 +15,6 @@ class ProductAttributesTableSeeder extends Seeder
      */
     public function run()
     {
-        ProductAttributeAttribute::factory(15)->create();
+        ProductAttribute::factory(15)->create();
     }
 }

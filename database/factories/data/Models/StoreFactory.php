@@ -22,13 +22,10 @@ class StoreFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->name;
-        $slug = $name;
-
         return [
-            'name' => $name,
-            'address' => $slug,
-            'url' => $this->faker->url,
+            'name' => $this->faker->name,
+            'address' => $this->faker->address,
+            'url' => $this->faker->unique()->url,
         ];
     }
 }
