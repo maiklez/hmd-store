@@ -9,6 +9,7 @@ use Lucid\Domains\Http\Jobs\RespondWithJsonErrorJob;
 use Lucid\Exceptions\InvalidInputException;
 
 use App\Domains\Provider\Jobs\SaveProviderJob;
+use App\Domains\Contact\Jobs\SaveContactJob;
 use App\Domains\Provider\Jobs\ValidateProviderInputJob;
 
 class CreateProviderFeature extends Feature
@@ -27,6 +28,14 @@ class CreateProviderFeature extends Feature
         $provider = $this->run(SaveProviderJob::class, [
             'name' => $request->input('name'),
             'cif' => $request->input('cif'),
+        ]);
+
+        $contact = $this->run(SaveContactJob::class, [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'related_id' => $provider->id,
+            'type' => 'Provider',
         ]);
 
         return $this->run(RespondWithJsonJob::class, [

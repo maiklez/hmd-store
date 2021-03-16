@@ -35,10 +35,10 @@ class AttributeRepository
 
     public function findBySlug($slug)
     {
-        $attribute = Attribute::where('slug', $slug)->first();
+        $attribute = Attribute::where('slug', 'like', $slug)->first();
         if (!$attribute)
         {
-          throw new NotFoundException('attribute not found');
+          throw new NotFoundException('attribute not found '. $slug);
         }
         return $attribute;
     }

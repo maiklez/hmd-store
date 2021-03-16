@@ -173,6 +173,7 @@ return [
         App\Services\ProvidersManagement\Providers\ProvidersManagementServiceProvider::class,
         App\Services\ClientsManagement\Providers\ClientsManagementServiceProvider::class,
         App\Services\OrdersManagement\Providers\OrdersManagementServiceProvider::class,
+        App\Services\ContactsManagement\Providers\ContactsManagementServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -2,8 +2,10 @@
 
 namespace App\Data\Repositories;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Exceptions\NotFoundException;
 use App\Data\Models\Product;
+use App\Data\Models\ProductAttribute;
 use App\Data\Repositories\Repository;
 
 class ProductRepository
@@ -34,9 +36,32 @@ class ProductRepository
         return $product;
     }
 
+    public function findByAttribute($type, $value)
+    {
+        $products = Product::whereHas('productAttributes', function (Builder $query) use ($type, $value) {
+            $query->where('type', 'like', $type)->where('value', 'like', $value);
+        })->get()->load('attributes');
+
+        return $products;
+    }
+
     public function getAll()
     {
         $products = Product::all();
+
+        return $products;
+    }
+
+    public function getBestSellers($storeId)
+    {
+        $products = Product::whereHas('orders', function (Builder $query) use ($storeId) {
+            if($storeId)
+            {
+                $query->where('store_id', '=', $storeId);
+            }
+        })->get()->each(function ($product)  use ($storeId) {
+            $product->totalUnitsSelled = $product->totalUnitsSelled($storeId);
+        })->sortByDesc('totalUnitsSelled');
 
         return $products;
     }

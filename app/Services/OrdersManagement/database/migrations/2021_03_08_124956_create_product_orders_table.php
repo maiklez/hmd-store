@@ -19,6 +19,10 @@ class CreateProductOrdersTable extends Migration
             $table->foreignId('order_id')->constrained('orders');
             $table->integer('quantity');
             $table->timestamps();
+            $table->unique([
+                'prod_id',
+                'order_id'
+            ]);
         });
     }
 

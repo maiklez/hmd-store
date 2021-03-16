@@ -2,15 +2,16 @@
 
 namespace App\Data\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class ProductAttribute extends Model
+class ProductAttribute extends Pivot
 {
     use HasFactory;
 
     protected $table = 'product_attributes';
 
+    public $incrementing = true;
     /**
      * The product_attributes that are mass assignable.
      *
@@ -27,7 +28,7 @@ class ProductAttribute extends Model
      */
     public function product()
     {
-        return $this->belongsTo(Product::class, 'foreign_key', 'prod_id');
+        return $this->belongsTo(Product::class, 'prod_id');
     }
 
     /**
@@ -35,6 +36,6 @@ class ProductAttribute extends Model
      */
     public function attribute()
     {
-        return $this->belongsTo(Attribute::class, 'foreign_key', 'type');
+        return $this->belongsTo(Attribute::class, 'type', 'slug');
     }
 }

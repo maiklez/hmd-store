@@ -14,8 +14,11 @@ class ProductAttributeRepository
         $product = $prodRepo->findById($prod_id);
 
         $attrRepo = new AttributeRepository();
+
         $attr = $attrRepo->findBySlug($type);
 
+        //$res = $attr->products()->attach($prod_id, ['type' => $attr->slug(), 'value' => $value]);
+        //$res = $product->attributes()->attach($attr->slug(), ['value' => $value]);
         $productattribute = new ProductAttribute();
 
         $productattribute->fill([

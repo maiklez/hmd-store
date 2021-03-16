@@ -8,6 +8,8 @@ use App\Services\StoresManagement\Features\CreateStoreFeature;
 use App\Services\StoresManagement\Features\ReadStoreFeature;
 use App\Services\StoresManagement\Features\UpdateStoreFeature;
 use App\Services\StoresManagement\Features\DeleteStoreFeature;
+use App\Services\StoresManagement\Features\ListStoresTopSellersFeature;
+use App\Services\StoresManagement\Features\ListStoresTopBillingFeature;
 
 class StoreController extends Controller
 {
@@ -15,6 +17,16 @@ class StoreController extends Controller
     public function getStores()
     {
         return $this->serve(ListStoresFeature::class);
+    }
+
+    public function topSellers()
+    {
+        return $this->serve(ListStoresTopSellersFeature::class);
+    }
+
+    public function topBilling()
+    {
+        return $this->serve(ListStoresTopBillingFeature::class);
     }
 
     public function createStore()

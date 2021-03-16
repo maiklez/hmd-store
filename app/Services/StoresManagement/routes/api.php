@@ -22,4 +22,6 @@ Route::group(['prefix' => 'stores'], function() {
     Route::put('/{id}', 'StoreController@updateStore');
     Route::delete('/{id}', 'StoreController@deleteStore');
 
+    Route::get('/orders/top-sellers', 'StoreController@topSellers');
+    Route::get('/orders/top-billing', 'StoreController@topBilling');
 });

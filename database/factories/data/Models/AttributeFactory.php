@@ -23,7 +23,7 @@ class AttributeFactory extends Factory
     public function definition()
     {
         $name = $this->faker->name;
-        $slug = $name;
+        $slug = Str::slug($name, '-');
 
         return [
             'name' => $name,

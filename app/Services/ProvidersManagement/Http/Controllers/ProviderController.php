@@ -9,6 +9,7 @@ use App\Services\ProvidersManagement\Features\ReadProviderFeature;
 use App\Services\ProvidersManagement\Features\UpdateProviderFeature;
 use App\Services\ProvidersManagement\Features\DeleteProviderFeature;
 use App\Services\ProvidersManagement\Features\ListProductsProvidersFeature;
+use App\Services\ProvidersManagement\Features\ListProvidersTopBillingFeature;
 
 class ProviderController extends Controller
 {
@@ -16,6 +17,11 @@ class ProviderController extends Controller
     public function getProviders()
     {
         return $this->serve(ListProvidersFeature::class);
+    }
+
+    public function getProvidersTopBilling()
+    {
+        return $this->serve(ListProvidersTopBillingFeature::class);
     }
 
     public function getProductsProviders($id)

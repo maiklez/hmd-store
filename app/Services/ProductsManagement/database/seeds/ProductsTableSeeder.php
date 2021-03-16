@@ -5,6 +5,8 @@ namespace App\Services\ProductsManagement\database\seeds;
 use App\Services\ProductsManagement\Database\Factories\ProductFactory;
 use Illuminate\Database\Seeder;
 use App\Data\Models\Product;
+use App\Data\Models\ProductAttribute;
+use App\Data\Models\Attribute;
 use App\Data\Models\StoreProduct;
 use App\Data\Models\Category;
 use App\Data\Models\Provider;
@@ -19,8 +21,13 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-
-        Product::factory(15)
+        $prods = Product::factory(15)
+            ->hasAttached(
+                Attribute::factory()->count(3),
+                function (Product $attr) {
+                        return ['value' => ProductAttribute::factory()->fakeValue()];
+                    }
+            )
             ->hasAttached(
                 Category::factory()->count(5)
             )
@@ -29,7 +36,7 @@ class ProductsTableSeeder extends Seeder
             )
             ->hasAttached(
                 Store::factory()->has(
-                    Order::factory()->count(1)
+                    Order::factory()->count(2)
                 )->count(5)
             )
             ->create();

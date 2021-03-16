@@ -49,6 +49,20 @@ class ClientRepository
         return $clients;
     }
 
+    public function topBuyer()
+    {
+        $clients = Client::whereHas('orders.products')->get()->load('orders.products')
+        ->each(function ($client) {
+            $client->totalBuy = $client->orders->reduce (function ($acc, $order) {
+                return $acc + $order->products->reduce (function ($acc, $product) {
+                    return $acc + ( $product->price * $product->pivot->quantity );
+                }, 0);
+            }, 0);
+        })->sortByDesc('totalBuy');;
+
+        return $clients;
+    }
+
     public function updateById($id, string $name, string $email)
     {
         $client = $this->findById($id);

@@ -24,4 +24,5 @@ Route::group(['prefix' => 'providers'], function() {
 
 
     Route::get('/{id}/products', 'ProviderController@getProductsProviders');
+    Route::get('/orders/top-billing', 'ProviderController@getProvidersTopBilling');
 });

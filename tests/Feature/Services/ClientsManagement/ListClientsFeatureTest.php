@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Services\ClientsManagement\Features\ListClientsFeature;
 use App\Data\Models\Client;
+use Database\Factories\data\Models\ProductFactory;
 
 class ListClientsFeatureTest extends TestCase
 {
@@ -24,5 +25,21 @@ class ListClientsFeatureTest extends TestCase
                 'data' => []
             ])
             ->assertJsonCount(15, 'data');
+    }
+
+    public function test_list_clients_top__billing_feature()
+    {
+        $factory = new ProductFactory();
+        $factory->testProductsStores();
+
+        $response = $this->get('/api/clients/orders/top-buyers');
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'status' => 200,
+                'data' => []
+            ])
+            ->assertJsonCount(75, 'data');
     }
 }

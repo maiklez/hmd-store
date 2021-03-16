@@ -2,6 +2,8 @@
 
 namespace App\Data\Repositories;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use App\Exceptions\NotFoundException;
 use App\Data\Models\Store;
 use App\Data\Repositories\Repository;
@@ -46,6 +48,34 @@ class StoreRepository
     public function getAll()
     {
         $stores = Store::all();
+
+        return $stores;
+    }
+
+    public function topBilling($storeId)
+    {
+        $stores = Store::whereHas('orders.products')->get()->load('orders.products')
+        ->each(function ($store) {
+            $store->totalBilling = $store->orders->reduce (function ($acc, $order) {
+                return $acc + $order->products->reduce (function ($acc, $product) {
+                    return $acc + ( $product->price * $product->pivot->quantity );
+                }, 0);
+            }, 0);
+        })->sortByDesc('totalBilling');
+
+        return $stores;
+    }
+
+    public function topSellers()
+    {
+        $stores = Store::whereHas('orders.products')->get()->load('orders.products')
+        ->each(function ($store) {
+            $store->totalProducts = $store->orders->reduce (function ($acc, $order) {
+                return $acc + $order->products->reduce (function ($acc, $product) {
+                    return $acc + $product->pivot->quantity;
+                }, 0);
+            }, 0);
+        })->sortByDesc('totalProducts');;
 
         return $stores;
     }

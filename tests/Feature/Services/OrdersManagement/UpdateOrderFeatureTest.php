@@ -50,6 +50,22 @@ class UpdateOrderFeatureTest extends TestCase
         $this->assertDatabaseCount('orders', 1);
     }
 
+    public function test_add_product_order_feature_fail()
+    {
+        $product = Product::factory(1)->create();
+        $orders = Order::factory(1)->hasAttached($product, ['quantity' => 1 ])->create();
+
+        $data = [
+            'quantity' => 1,
+            'prod_id' => $product[0]->id,
+            'id' => $orders[0]->id,
+        ];
+
+        $response = $this->post('/api/orders/1/products', $data);
+        $response->assertStatus(422);
+        $this->assertDatabaseCount('orders', 1);
+    }
+
     public function test_update_order_feature_fail_422()
     {
         $orders = Order::factory(2)->create();

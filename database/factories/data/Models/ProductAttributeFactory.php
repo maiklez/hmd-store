@@ -17,6 +17,11 @@ class ProductAttributeFactory extends Factory
      */
     protected $model = ProductAttribute::class;
 
+    public function fakeValue()
+    {
+        return $this->faker->word;
+    }
+
     /**
      * Define the model's default state.
      *
@@ -27,7 +32,7 @@ class ProductAttributeFactory extends Factory
         return [
             'prod_id' => Product::factory(),
             'type' => Attribute::factory(),
-            'value' => $this->faker->text,
+            'value' => $this->faker->word,
         ];
     }
 }

@@ -16,7 +16,8 @@ class CreateProductAttributeTable extends Migration
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('prod_id')->constrained('products');
-            $table->string('type', 50)->constrained('attributes');
+            $table->string('type', 50);
+            $table->foreign('type')->references('slug')->on('attributes');
             $table->string('value', 100);
             $table->timestamps();
             $table->unique ([

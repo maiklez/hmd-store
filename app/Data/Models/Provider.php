@@ -25,4 +25,9 @@ class Provider extends Model
     {
         return $this->belongsToMany(Product::class, 'product_providers', 'prov_id', 'prod_id');
     }
+
+    public function contacts()
+    {
+        return $this->morphMany(Contact::class, 'contact');
+    }
 }

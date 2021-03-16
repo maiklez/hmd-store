@@ -22,4 +22,6 @@ Route::group(['prefix' => 'clients'], function() {
     Route::put('/{id}', 'ClientController@updateClient');
     Route::delete('/{id}', 'ClientController@deleteClient');
 
+    Route::get('/orders/top-buyers', 'ClientController@getTopBuyers');
+
 });

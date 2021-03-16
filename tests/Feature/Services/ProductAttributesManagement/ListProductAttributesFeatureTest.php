@@ -8,7 +8,6 @@ use App\Services\ProductAttributesManagement\Features\ListProductAttributesFeatu
 use App\Data\Models\ProductAttribute;
 use App\Data\Models\Product;
 use App\Data\Models\Attribute;
-
 class ListProductAttributesFeatureTest extends TestCase
 {
     use RefreshDatabase;

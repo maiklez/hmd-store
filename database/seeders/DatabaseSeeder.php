@@ -26,9 +26,9 @@ class DatabaseSeeder extends Seeder
 
         //$this->call(CategoriesTableSeeder::class);
         //$this->call(ProvidersTableSeeder::class);
-        $this->call(AttributesTableSeeder::class);
+        //$this->call(AttributesTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
-        $this->call(ProductAttributesTableSeeder::class);
+        //$this->call(ProductAttributesTableSeeder::class);
         $this->call(OrdersTableSeeder::class);
 
         // Re enable all mass assignment restrictions

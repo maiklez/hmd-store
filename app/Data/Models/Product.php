@@ -23,9 +23,13 @@ class Product extends Model
         'price',
     ];
 
+    public function productAttributes()
+    {
+        return $this->hasMany(ProductAttribute::class, 'prod_id');
+    }
     public function attributes()
     {
-        return $this->belongsToMany(Attribute::class, 'product_attributes', 'prod_id', 'type');
+        return $this->belongsToMany(Product::class, 'product_attributes', 'prod_id', 'type', 'id', 'slug')->using(ProductAttribute::class);
     }
 
     public function categories()
@@ -40,7 +44,16 @@ class Product extends Model
 
     public function orders()
     {
-        return $this->belongsToMany(Order::class, 'product_orders', 'prod_id', 'order_id');
+        return $this->belongsToMany(Order::class, 'product_orders', 'prod_id', 'order_id')->withPivot('quantity');
+    }
+
+    public function totalUnitsSelled($storeId)
+    {
+        if($storeId)
+        {
+            return $this->orders()->where('store_id', $storeId)->sum('product_orders.quantity');
+        }
+        return $this->orders()->sum('product_orders.quantity');
     }
 
     public function stores()

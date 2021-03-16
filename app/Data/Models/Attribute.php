@@ -22,8 +22,18 @@ class Attribute extends Model
         'description',
     ];
 
+    public function  slug()
+    {
+        return $this->slug;
+    }
+
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_attributes', 'type', 'prod_id');
+        return $this->belongsToMany(Product::class, 'product_attributes', 'type', 'prod_id', 'slug', 'id')->using(ProductAttribute::class);
+    }
+
+    public function productAttributes()
+    {
+        return $this->hasMany(ProductAttribute::class, 'type');
     }
 }

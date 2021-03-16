@@ -17,6 +17,11 @@ class OrderFactory extends Factory
      */
     protected $model = Order::class;
 
+
+    public function quantity()
+    {
+        return $this->faker->randomDigitNotNull();
+    }
     /**
      * Define the model's default state.
      *

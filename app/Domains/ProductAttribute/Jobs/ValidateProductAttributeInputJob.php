@@ -28,7 +28,7 @@ class ValidateProductAttributeInputJob extends Job
     private function rulesToCreate(){
         return [
             'prod_id' => ['required', 'integer'],
-            'type' => ['required', 'string', 'max:100'],
+            'type' => ['required', 'string', 'max:50', 'unique:product_attributes,type,NULL,id,prod_id,' . $this->input['prod_id']],
             'value' => ['required', 'string', 'max:100'],
         ];
     }

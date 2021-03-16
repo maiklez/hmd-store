@@ -5,6 +5,7 @@ namespace App\Services\OrdersManagement\database\seeds;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Builder;
 use App\Data\Models\Order;
+use App\Data\Models\Store;
 use App\Data\Models\Product;
 
 class OrdersTableSeeder extends Seeder
@@ -19,14 +20,9 @@ class OrdersTableSeeder extends Seeder
         $orders = Order::all();
         foreach ($orders as $order)
         {
-            $product = Product::with([
-                'stores' => function ($query)  use ($order){
-                    $query->where('product_stores.store_id', '=', $order->store_id);
-                },
-            ])->first();
-
+            $product = Store::find($order->store_id)->products()->first();
             $order->products()->attach(
-                $product->id, ['quantity' => 2]
+                $product->id, ['quantity' => Order::factory()->quantity()]
             );
         }
     }

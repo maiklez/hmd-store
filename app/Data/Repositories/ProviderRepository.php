@@ -2,6 +2,7 @@
 
 namespace App\Data\Repositories;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Exceptions\NotFoundException;
 use App\Data\Models\Provider;
 use App\Data\Repositories\Repository;
@@ -55,6 +56,20 @@ class ProviderRepository
     public function getAll()
     {
         $providers = Provider::all();
+
+        return $providers;
+    }
+
+    public function getTopBilling()
+    {
+        $providers = Provider::whereHas('products.orders')->get()->load('products.orders')
+        ->each(function ($provider) {
+            $provider->totalBilling = $provider->products->reduce(function ($acc, $product) {
+                return $acc + $product->orders->reduce(function ($acc, $order) use ($product){
+                    return $acc + ( $product->price * $order->pivot->quantity );
+                }, 0);
+            }, 0);
+        })->sortByDesc('totalBilling');
 
         return $providers;
     }

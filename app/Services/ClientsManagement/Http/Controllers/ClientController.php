@@ -8,6 +8,7 @@ use App\Services\ClientsManagement\Features\CreateClientFeature;
 use App\Services\ClientsManagement\Features\ReadClientFeature;
 use App\Services\ClientsManagement\Features\UpdateClientFeature;
 use App\Services\ClientsManagement\Features\DeleteClientFeature;
+use App\Services\ClientsManagement\Features\ReadClientsTopBillingFeature;
 
 class ClientController extends Controller
 {
@@ -15,6 +16,11 @@ class ClientController extends Controller
     public function getClients()
     {
         return $this->serve(ListClientsFeature::class);
+    }
+
+    public function getTopBuyers()
+    {
+        return $this->serve(ReadClientsTopBillingFeature::class);
     }
 
     public function createClient()

@@ -43,11 +43,23 @@ class OrderRepository
         return $order;
     }
 
-    public function getAll()
+    public function getAllFilers($storeId, $dateIni, $dateEnd)
     {
         $orders = Order::all();
+        if($storeId)
+        {
+            $orders = $orders->where('store_id', $storeId);
+        }
+        if($dateIni)
+        {
+            $orders = $orders->where('created_at', '>', $dateIni);
+        }
+        if($dateEnd)
+        {
+            $orders = $orders->where('created_at', '<', $dateEnd);
+        }
 
-        return $orders;
+        return $orders->load('products');
     }
 
     public function updateById($id, $client_id, $store_id)

@@ -15,19 +15,24 @@ class CreateProviderFeatureTest extends TestCase
         $data = [
             'name' => str_repeat('a', 100),
             'cif' => str_repeat('a', 9),
+            'name' => str_repeat('a', 100),
+            'email' => 'test@test.com',
+            'phone' => '0034600606060',
         ];
 
         $response = $this->post('/api/providers', $data);
 
         $response->assertStatus(201);
         $this->assertDatabaseCount('providers', 1);
+        $this->assertDatabaseCount('contacts', 1);
     }
 
     public function test_create_provider_feature_fail()
     {
         $data = [
-            'name' => str_repeat('a', 101),
-            'slug' => str_repeat('a', 10),
+            'cif' => str_repeat('a', 9),
+            'name' => str_repeat('a', 100),
+            'email' => 'test@test.com',
         ];
 
         $response = $this->post('/api/providers', $data);

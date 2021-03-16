@@ -29,6 +29,10 @@ class ValidateProviderInputJob extends Job
         return [
             'name' => ['required', 'string', 'max:100'],
             'cif' => ['required', 'string','min:9', 'max:9', 'unique:providers'],
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'string', 'max:50'],
+            'phone' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:10', 'max:20'],
+
         ];
     }
 

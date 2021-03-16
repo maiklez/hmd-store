@@ -12,9 +12,12 @@ class ReadOrderJob extends Job
      *
      * @return void
      */
-    public function __construct($id = null)
+    public function __construct($id = null, $storeId = null, $dateIni = null, $dateEnd = null)
     {
         $this->id = $id;
+        $this->storeId = $storeId;
+        $this->dateIni = $dateIni;
+        $this->dateEnd = $dateEnd;
     }
 
     /**
@@ -29,6 +32,6 @@ class ReadOrderJob extends Job
             return $orderRepo->findById($this->id);
         }
 
-        return $orderRepo->getAll();
+        return $orderRepo->getAllFilers($this->storeId, $this->dateIni, $this->dateEnd);
     }
 }

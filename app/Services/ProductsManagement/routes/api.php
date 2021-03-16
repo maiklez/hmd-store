@@ -22,4 +22,6 @@ Route::group(['prefix' => 'products'], function() {
     Route::put('/{id}', 'ProductController@updateProduct');
     Route::delete('/{id}', 'ProductController@deleteProduct');
 
+    Route::get('/types/{type}/values/{value}', 'ProductController@listProductAttributes');
+    Route::get('/orders/best-sellers', 'ProductController@getProductsBestSellers');
 });

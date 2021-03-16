@@ -43,7 +43,7 @@ class ValidateOrderInputJob extends Job
 
     private function rulesToAddProduct(){
         return [
-            'prod_id' => ['required', 'integer'],
+            'prod_id' => ['required', 'integer', 'unique:product_orders,prod_id,NULL,id,order_id,' . $this->id],
             'quantity' => ['required', 'integer'],
         ];
     }

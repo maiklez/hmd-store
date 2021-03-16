@@ -7,6 +7,7 @@ use Lucid\Units\Feature;
 use Lucid\Domains\Http\Jobs\RespondWithJsonJob;
 
 use App\Domains\Product\Jobs\ReadProductJob;
+use App\Domains\Product\Jobs\ListProductAttributesJob;
 
 class ListProductsFeature extends Feature
 {
